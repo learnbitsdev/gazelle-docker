@@ -1,0 +1,64 @@
+# DOCKER CONTAINERS:
+# mysql (db)
+# phpmyadmin (db web admin)
+# memcached (site cache)
+# sphinx (search daemon)
+# web (nginx / php7)
+# ocelot (the c++ tracker)
+
+version: '2'
+services:
+  mysql:
+    image: mysql:5
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=toor
+    volumes:
+      - ${PATH_TO_GAZELLE_REPO}/gazelle.sql:/docker-entrypoint-initdb.d/gazelle.sql:ro
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=toor
+    depends_on:
+      - mysql
+    ports:
+      - "127.0.0.1:${PHPMYADMIN_PORT}:80"
+  memcached:
+    image: memcached:latest
+    container_name: memcached
+  sphinx:
+    image: centurylink/sphinx
+    container_name: sphinx
+    command: ./indexall.sh
+    volumes:
+      - ./devconfig/sphinx.conf:/usr/local/etc/sphinx.conf:ro
+    depends_on:
+      - mysql
+  web:
+    build:
+      context: ./web
+    container_name: web
+    volumes:
+     - "${PATH_TO_GAZELLE_REPO}:/var/www/"
+     - "${PATH_TO_CONFIG_FILES}/cron.sh:/cron.sh:ro"
+     - "${PATH_TO_CONFIG_FILES}/gazelle.config.php:/var/www/classes/config.php:ro"
+    ports:
+      - "127.0.0.1:${GAZELLE_PORT}:80"
+    depends_on:
+      - mysql
+      - memcached
+      - sphinx
+      - ocelot
+  ocelot:
+    build:
+      context: ./ocelot
+    container_name: ocelot
+    volumes:
+      - "${PATH_TO_CONFIG_FILES}/ocelot.conf:/root/ocelot.conf:ro"
+    ports:
+      - "127.0.0.1:${OCELOT_PORT}:34000"
+    depends_on:
+      - mysql

@@ -12,7 +12,7 @@ This guide assumes that you will be developing on a Linux based system. We recom
 
 ## About the environment
 
-Docker is our current approach for easily deploying the entire tracker stack on any host. At the time of writing, these are the containers that make up LBDev:
+Docker is our current approach for easily deploying the entire tracker stack on any host. At the time of writing, these are the containers defined for this stack:
 
   * web
     * Hosts the nginx + PHP7 server which serves up the tracker's web interface (Gazelle)

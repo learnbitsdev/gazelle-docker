@@ -33,5 +33,10 @@ EXPOSE 80
 ADD start.sh /start.sh
 RUN chmod +x ./start.sh
 
+# copy in keys
+COPY docker.crt /etc/nginx/certs/docker.crt
+COPY docker.key /etc/nginx/certs/docker.key
+RUN chown -R www-data: /etc/nginx/certs
+
 # start nginx / other web related processes
 CMD ["./start.sh"]

@@ -64,7 +64,7 @@ If for some reason you become detached from your console or need to stop the tra
 
 ## Go forth. Develop.
 
-At this point, you should be able to browse to the tracker at http://localhost:8080 and access phpMyAdmin at http://localhost:8081
+At this point, you should be able to browse to the tracker at https://localhost:8080 and access phpMyAdmin at http://localhost:8081
 
 The TCP tracker (ocelot) will be running on localhost:34000
 
@@ -72,6 +72,6 @@ As the web container references your "Gazelle" directory, you can simply edit th
 
 ## Creating your first tracker account
 
-Prior to creating the first account on the tracker, you will need to load in an encryption key. This is required every time the tracker is restarted. You can load a key in at http://localhost:8080/tools.php?action=database_key It does not matter what you use for this key, as long as you are consistent.
+Prior to creating the first account on the tracker, you will need to load in an encryption key. This is required every time the tracker is restarted. You can load a key in at https://localhost:8080/tools.php?action=database_key It does not matter what you use for this key, as long as you are consistent.
 
-Once you've loaded in the key, you can then register an account at http://localhost:8080/register.php
+Once you've loaded in the key, you can then register an account at https://localhost:8080/register.php

@@ -46,7 +46,7 @@ services:
      - "${PATH_TO_CONFIG_FILES}/cron.sh:/cron.sh:ro"
      - "${PATH_TO_CONFIG_FILES}/gazelle.config.php:/var/www/classes/config.php:ro"
     ports:
-      - "127.0.0.1:${GAZELLE_PORT}:80"
+      - "127.0.0.1:${GAZELLE_PORT}:443"
     depends_on:
       - mysql
       - memcached

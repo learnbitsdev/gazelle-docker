@@ -9,7 +9,7 @@ RUN apt-get update && apt-get -y dist-upgrade && \
 RUN ln -s /usr/lib/libtcmalloc_minimal.so.4 /usr/lib/libtcmalloc.so
 
 # build/install boost
-RUN cd /tmp && wget https://fossies.org/linux/misc/boost_1_63_0.tar.gz && \
+RUN cd /tmp && wget https://sourceforge.net/projects/boost/files/boost/1.63.0/boost_1_63_0.tar.gz && \
     tar -zxf boost_1_63_0.tar.gz && cd boost_1_63_0 && \
     ./bootstrap.sh --prefix=/usr/local && \
     ./b2 stage toolset=gcc cxxflags=-std=gnu++11 threading=multi link=shared && \
